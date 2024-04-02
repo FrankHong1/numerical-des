@@ -47,4 +47,23 @@ $$\ddot{I} + 2\alpha \dot{I} + \omega_0^2 I = 0$$.
 ### Initial conditions
 I need 2 initial conditions given this is a 2nd order ODE. Here let's assume that initially 
 1. there is no current, so $I(0) = 0$, and
-2. all charge is stored at the capacitor, so in other words capacitor is at 
+2. initially, all charge is stored on the capacitor, and so the voltage across the capacitor is $V_0$. [It can be shown](https://www.khanacademy.org/science/electrical-engineering/ee-circuit-analysis-topic/ee-natural-and-forced-response/a/ee-rlc-natural-response-derivation) that this is equivalent to saying that initially like $\dot{I}(0) = \frac{1}{L}V_0$.
+
+Now we have everything we need to solve the RLC system using Python.
+
+## From 2nd order to 1st order: systems of equations
+
+One trick I really like is to replace the 2nd order ODE with a system of coupled 1st order ODEs. This way, we can get away with only knowing the approximation formula for the 1st derivative.
+
+In other words, let's set
+$$\dot{I} = J(t)$$,
+$$\dot{J} = - 2\alpha J - \omega_0^2 I$$.
+Discretizing both in time will give
+$$I_{n+1} = I_{n} + h J_{t_n}$$,
+$$J_{n+1} = J_n + h (-2\alpha J_{n}-\omega_0^2 I_n)$$,
+
+With initial conditions giving
+$$ I_0 = 0, J(0) = \frac{1}{L}V_0$$
+
+We are now ready to implement this in Python.
+
