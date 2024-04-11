@@ -40,6 +40,8 @@ class RLC:
 if __name__ == "__main__":
     rlc = RLC(1, 1, 1)
     plt.plot(rlc.differential_equation()["i"])
+    plt.ylabel("I(t)")
+    plt.xlabel("t")
     plt.savefig("RLC.png")
     
 
